@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 
+import ch.zhaw.ciel.mse.alg.tsp.metaheuristics.NearestNeighbor;
 import ch.zhaw.ciel.mse.alg.tsp.metaheuristics.RandomSampling;
 import ch.zhaw.ciel.mse.alg.tsp.utils.Instance;
 import ch.zhaw.ciel.mse.alg.tsp.utils.Point;
@@ -14,7 +15,8 @@ public class DemoMain {
 
 	public static void main(String[] args) throws IOException {
 
-		runSingleTSPInstance("sw24978");
+//		runSingleTSPInstance("sw24978");
+		runSingleTSPInstance("berlin52");
 
 	}
 
@@ -39,7 +41,7 @@ public class DemoMain {
 		System.out.println("Start generating a solution..."); 
 		List<Point> solution;
 		
-		solution = RandomSampling.solve(instance);
+		solution = NearestNeighbor.solve(instance);
 		
 		//TODO: call your Solution here
 
