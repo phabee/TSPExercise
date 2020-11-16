@@ -5,7 +5,6 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import ch.zhaw.ciel.mse.alg.tsp.metaheuristics.GreedyInsertion;
-import ch.zhaw.ciel.mse.alg.tsp.metaheuristics.NearestNeighbor;
 
 public class RandomInstanceRunner {
 	

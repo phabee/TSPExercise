@@ -2,13 +2,10 @@ package ch.zhaw.ciel.mse.alg.tsp.metaheuristics;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import ch.zhaw.ciel.mse.alg.tsp.utils.Point;
 import ch.zhaw.ciel.mse.alg.tsp.utils.Instance;
-import ch.zhaw.ciel.mse.alg.tsp.utils.Utils;
+import ch.zhaw.ciel.mse.alg.tsp.utils.Point;
 
 /**
  * 

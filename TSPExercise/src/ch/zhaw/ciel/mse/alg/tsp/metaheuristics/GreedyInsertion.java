@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import ch.zhaw.ciel.mse.alg.tsp.utils.Point;
 import ch.zhaw.ciel.mse.alg.tsp.utils.Instance;
+import ch.zhaw.ciel.mse.alg.tsp.utils.Point;
 import ch.zhaw.ciel.mse.alg.tsp.utils.Utils;
 
 /**
