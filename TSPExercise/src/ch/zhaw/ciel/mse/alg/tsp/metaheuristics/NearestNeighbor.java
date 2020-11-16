@@ -12,11 +12,15 @@ import ch.zhaw.ciel.mse.alg.tsp.utils.Utils;
 public class NearestNeighbor {
 
 	public static List<Point> solve(Instance instance) {
+		return solve(instance, 0);
+	}
+
+	public static List<Point> solve(Instance instance, int initPos) {
 		Point[] points = instance.getPoints().toArray(new Point[instance.getPoints().size()]);
 		Arrays.sort(points, (p1, p2) -> Integer.compare(p1.getId(), p2.getId()));
 
 		List<Integer> tour = new ArrayList<Integer>();
-		tour.add(0);
+		tour.add(initPos);
 		while (tour.size() < points.length) {
 			int nextPoint = findNextNearest(tour, points);
 			tour.add(nextPoint);
@@ -27,6 +31,7 @@ public class NearestNeighbor {
 		return solution;
 	}
 
+	
 	public static int findNextNearest(List<Integer> tour, Point[] points) {
 		// get current location
 		Integer currentLocation = tour.get(tour.size() - 1);

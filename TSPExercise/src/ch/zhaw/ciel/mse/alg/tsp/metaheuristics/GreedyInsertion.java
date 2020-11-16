@@ -24,7 +24,6 @@ public class GreedyInsertion {
 	 * @return A list of points. Each point in the instance appears exactly once.
 	 */
 	public static List<Point> solve(Instance instance) {
-
 		Point[] points = instance.getPoints().toArray(new Point[instance.getPoints().size()]);
 		Arrays.sort(points, (p1, p2) -> Integer.compare(p1.getId(), p2.getId()));
 		
