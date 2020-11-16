@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 
+import ch.zhaw.ciel.mse.alg.tsp.metaheuristics.GreedyInsertion;
 import ch.zhaw.ciel.mse.alg.tsp.metaheuristics.NearestNeighbor;
+import ch.zhaw.ciel.mse.alg.tsp.metaheuristics.PilotMethod;
 import ch.zhaw.ciel.mse.alg.tsp.metaheuristics.RandomSampling;
 import ch.zhaw.ciel.mse.alg.tsp.utils.Instance;
 import ch.zhaw.ciel.mse.alg.tsp.utils.Point;
@@ -41,10 +43,11 @@ public class DemoMain {
 		System.out.println("Start generating a solution..."); 
 		List<Point> solution;
 		
-		solution = NearestNeighbor.solve(instance);
+//		solution = NearestNeighbor.solve(instance);
+		solution = RandomSampling.solve(instance);
+//		solution = GreedyInsertion.solve(instance);
+//		solution = PilotMethod.solve(instance);
 		
-		//TODO: call your Solution here
-
 		System.out.println("Solution for " + instanceName + " has length: " + Utils.euclideanDistance2D(solution));
 		System.out.println();
 

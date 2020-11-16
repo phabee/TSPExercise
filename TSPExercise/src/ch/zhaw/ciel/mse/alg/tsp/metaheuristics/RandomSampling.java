@@ -30,10 +30,11 @@ public class RandomSampling {
 		Arrays.sort(points, (p1, p2) -> Integer.compare(p1.getId(), p2.getId()));
 		
 		List<Integer> nextIndices = new ArrayList<Integer>();
-				
-		for (int i = 0; i < points.length; i++) {
-			Integer nextRandomIndex = getNextRandomIndex(points, nextIndices);
-			nextIndices.add(nextRandomIndex);
+		while (nextIndices.size() < points.length) {
+			List<Integer> integerList = getIntegerList(points.length);
+			integerList.removeAll(nextIndices);
+			int rndIdx = (int)(Math.random()*(integerList.size()));
+			nextIndices.add(integerList.get(rndIdx));
 		}
 		int[] intNextIndices = toArray(nextIndices);
 		
@@ -51,23 +52,12 @@ public class RandomSampling {
 		return retVal;
 	}
 
-
-	private static Integer getNextRandomIndex(Point[] points, List<Integer> nextIndices) {
-		// calculate set of indexes not visited 
-		Set<Integer> allIdx = getIntegerSet(points.length);
-		allIdx.removeAll(nextIndices);
-		// now get random entry from set
-		Integer retVal = (int) (Math.random()*allIdx.size());
-		return retVal;
-	}
-
-	private static Set<Integer> getIntegerSet(int length) {
-		Set<Integer> set = new HashSet<Integer>();
+	private static List<Integer> getIntegerList(int length) {
+		List<Integer> set = new ArrayList<Integer>();
 		for (int i=0; i< length; i++)
 			set.add(i);
 		return set;
 	}
-
 
 	private static List<Point> buildTourFromIndices(Point[] points, int[] nextIndices) {
 		//Walk along next indices to build solution.
@@ -78,26 +68,6 @@ public class RandomSampling {
 			j = nextIndices[j];
 		}
 		return solution;
-	}
-
-	private static void findBestInsertPosition(Point[] points, int[] nextIndices) {
-		//Find the best position to insert for each remaining point
-		for(int i = 2; i < points.length; i++){
-			double lowestDistanceIncrease = Double.POSITIVE_INFINITY;
-			int lowestDistanceIncreaseIdx = -1;
-			
-			for(int j = 0; j < i; j++){
-				//Increased cost of tour if point i is inserted in place j
-				double distanceIncrease = Utils.euclideanDistance2D(points[j], points[i]) + Utils.euclideanDistance2D(points[i], points[nextIndices[j]]) - Utils.euclideanDistance2D(points[j], points[nextIndices[j]]);
-				if (distanceIncrease < lowestDistanceIncrease){
-					lowestDistanceIncrease = distanceIncrease;
-					lowestDistanceIncreaseIdx = j;
-				}
-			}
-			
-			nextIndices[i] = nextIndices[lowestDistanceIncreaseIdx];
-			nextIndices[lowestDistanceIncreaseIdx] = i;
-		}
 	}
 
 }

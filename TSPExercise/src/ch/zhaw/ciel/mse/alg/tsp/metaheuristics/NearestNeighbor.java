@@ -7,6 +7,7 @@ import java.util.List;
 import ch.zhaw.ciel.mse.alg.tsp.utils.Instance;
 import ch.zhaw.ciel.mse.alg.tsp.utils.Point;
 import ch.zhaw.ciel.mse.alg.tsp.utils.TSPHelper;
+import ch.zhaw.ciel.mse.alg.tsp.utils.Utils;
 
 public class NearestNeighbor {
 
@@ -17,9 +18,8 @@ public class NearestNeighbor {
 		List<Integer> tour = new ArrayList<Integer>();
 		tour.add(0);
 		while (tour.size() < points.length) {
-			int nextPoint = findNextNearest(tour, points, instance);
+			int nextPoint = findNextNearest(tour, points);
 			tour.add(nextPoint);
-			System.out.println("size = " + tour.size());
 		}
 		tour.add(tour.get(0));
 
@@ -27,7 +27,7 @@ public class NearestNeighbor {
 		return solution;
 	}
 
-	private static int findNextNearest(List<Integer> tour, Point[] points, Instance instance) {
+	public static int findNextNearest(List<Integer> tour, Point[] points) {
 		// get current location
 		Integer currentLocation = tour.get(tour.size() - 1);
 		double minDist = Double.MAX_VALUE;
@@ -35,8 +35,7 @@ public class NearestNeighbor {
 		for (int i = 0; i < points.length; i++) {
 			// only test unvisited points
 			if (!tour.contains(i)) {
-//				double dist = Utils.euclideanDistance2D(points[currentLocation], points[i]);
-				double dist = instance.getDistance(currentLocation, i);
+				double dist = Utils.euclideanDistance2D(points[currentLocation], points[i]);
 				if (dist < minDist) {
 					minDist = dist;
 					bestNextStop = i;

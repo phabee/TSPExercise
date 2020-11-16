@@ -29,8 +29,8 @@ public class Utils {
 	}
 
 	/**
-	 * Get the cost for a whole trip using the Euclidean distance. The way from
-	 * the last point in the list to the start is included.
+	 * Get the cost for a whole trip using the Euclidean distance. The way from the
+	 * last point in the list to the start is included.
 	 * 
 	 * @param points
 	 * @return
@@ -48,6 +48,22 @@ public class Utils {
 		totalDistance += euclideanDistance2D(currentPoint, points.get(0));
 
 		return totalDistance;
+	}
+
+	/**
+	 * the same as euclideanDistance2D, however it takes an integer list containing
+	 * the indices of the points in the sequence to be visited.
+	 * 
+	 * @param points
+	 * @param tmpTourInt
+	 * @return
+	 */
+	public static double euclideanDistance2D(Point[] points, List<Integer> tmpTourInt) {
+		List<Point> pointList = new ArrayList<Point>();
+		for (int stop : tmpTourInt) {
+			pointList.add(points[stop]);
+		}
+		return euclideanDistance2D(pointList);
 	}
 
 	/**
@@ -79,12 +95,9 @@ public class Utils {
 	/**
 	 * Generate a random instance.
 	 * 
-	 * @param name
-	 *            The name of the generated instance.
-	 * @param comment
-	 *            The comment for the generated instance.
-	 * @param numPoints
-	 *            The amount of points to generate randomly.
+	 * @param name      The name of the generated instance.
+	 * @param comment   The comment for the generated instance.
+	 * @param numPoints The amount of points to generate randomly.
 	 * @return An instance with given name and comment and randomly distributed
 	 *         points.
 	 */
@@ -109,27 +122,26 @@ public class Utils {
 	}
 
 	/**
-	 * Get an iterator over all possible distinct permutations in
-	 * lexicographical order (by {@link Point} id) </br>
+	 * Get an iterator over all possible distinct permutations in lexicographical
+	 * order (by {@link Point} id) </br>
 	 * [1,3,2] -> [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
 	 * 
-	 * @param points
-	 *            The points to get permutations for.
+	 * @param points The points to get permutations for.
 	 * @return An iterator over all possible permutations. Starts with the first
 	 *         permutation in lexicographical order.
 	 */
 	public static Iterator<List<Point>> getAllPermutations(Collection<Point> points) {
 		return new PermutationIterator(points);
 	}
-	
+
 	/**
-	 * Get an iterator over all possible distinct permutations in
-	 * lexicographical order starting with the given permutation (by {@link Point} id) </br>
+	 * Get an iterator over all possible distinct permutations in lexicographical
+	 * order starting with the given permutation (by {@link Point} id) </br>
 	 * [1,3,2] -> [[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1],[1,2,3]]
 	 * 
-	 * @param points
-	 *            The points to get permutations for.
-	 * @return An iterator over all possible permutations. Starts with the given permutation.
+	 * @param points The points to get permutations for.
+	 * @return An iterator over all possible permutations. Starts with the given
+	 *         permutation.
 	 */
 	public static Iterator<List<Point>> getAllPermutations(List<Point> points) {
 		return new PermutationIterator(points);
@@ -147,7 +159,9 @@ public class Utils {
 		private List<Point> nextPermutation;
 
 		/**
-		 * Instantiate a new {@link Iterator} beginning with the first permutation in lexicographical order.
+		 * Instantiate a new {@link Iterator} beginning with the first permutation in
+		 * lexicographical order.
+		 * 
 		 * @param points The points to generate permutations for.
 		 */
 		public PermutationIterator(Collection<Point> points) {
@@ -155,9 +169,10 @@ public class Utils {
 			this.points.sort((p1, p2) -> Integer.compare(p1.getId(), p2.getId()));
 			this.nextPermutation = this.points;
 		}
-		
+
 		/**
 		 * Instantiate an {@link Iterator} beginning with the given permutation.
+		 * 
 		 * @param points The points in the permutation to begin with.
 		 */
 		public PermutationIterator(List<Point> points) {
@@ -174,12 +189,12 @@ public class Utils {
 		public List<Point> next() {
 			List<Point> res = nextPermutation;
 			nextPermutation = getNextPermutation(nextPermutation);
-			
-			//All permutations visited, therefore stop iterator.
-			if (nextPermutation.equals(points)){
+
+			// All permutations visited, therefore stop iterator.
+			if (nextPermutation.equals(points)) {
 				nextPermutation = null;
 			}
-			
+
 			return res;
 		}
 

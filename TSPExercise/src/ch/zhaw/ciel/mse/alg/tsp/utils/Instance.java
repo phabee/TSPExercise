@@ -23,7 +23,6 @@ public class Instance {
 	private final String comment;
 
 	private final List<Point> points;
-	private Point[] pointsArr = null;
 
 	private double dima[][] = null;
 
@@ -63,30 +62,6 @@ public class Instance {
 		this.name = name;
 		this.comment = comment;
 		this.points = points;
-		this.pointsArr = points.toArray(new Point[points.size()]);
-		Arrays.sort(pointsArr, (p1, p2) -> Integer.compare(p1.getId(), p2.getId()));
-		initializeDima();
-	}
-
-	private void initializeDima() {
-		if (points.size() > 10000) {
-			return;
-		}
-		System.out.println("   Initialization of dima-calculation started...");
-		Point[] array = points.toArray(new Point[points.size()]);
-		Arrays.sort(array, (p1, p2) -> Integer.compare(p1.getId(), p2.getId()));
-
-		this.dima = new double[array.length][array.length];
-		for (int i = 0; i < array.length; i++) {
-			for (int j = 0; j < array.length; j++) {
-				if (i <= j) {
-					this.dima[i][j] = Utils.euclideanDistance2D(array[i], array[j]);
-				} else {
-					this.dima[i][j] = this.dima[j][i];
-				}
-			}
-		}
-		System.out.println("   Dima-calculation complete!");
 	}
 
 	public String getName() {
@@ -100,7 +75,7 @@ public class Instance {
 	public List<Point> getPoints() {
 		return points;
 	}
-
+	
 	public List<Point> clonePointList() {
 		ArrayList<Point> clonedPoints = new ArrayList<Point>(getPoints().size());
 
@@ -110,11 +85,4 @@ public class Instance {
 		return clonedPoints;
 	}
 
-	public double getDistance(int i, int j) {
-		if (dima != null) {
-			return dima[i][j];
-		} else {
-			return Utils.euclideanDistance2D(pointsArr[i], pointsArr[j]);
-		}
-	}
 }
